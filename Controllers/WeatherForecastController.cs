@@ -19,7 +19,7 @@ public class WeatherForecastController : ControllerBase
     {
         _logger = logger;
 
-        if (ListWeatherForecast == null || ListWeatherForecast.Any())
+        if (ListWeatherForecast == null || ListWeatherForecast.Count != 0)
         {
             ListWeatherForecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -39,10 +39,18 @@ public class WeatherForecastController : ControllerBase
     }
 
     // POST Method
-    [HttpPost(Name = "GetWeatherForecast")]
+    [HttpPost]
     public IActionResult Post(WeatherForecast weatherForecast)
     {
         ListWeatherForecast.Add(weatherForecast);
-        return Ok(weatherForecast);
+        return Ok();
+    }
+
+    // DELETE Method
+    [HttpDelete("{index}")]
+    public IActionResult Delete(int index)
+    {
+        ListWeatherForecast.RemoveAt(index);
+        return Ok();
     }
 }
