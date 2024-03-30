@@ -1,4 +1,5 @@
 using apidotnet.Middlewares;
+using apidotnet.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Injectors
+builder.Services.AddScoped<IHelloWorldService, HelloWorldService>();
 
 var app = builder.Build();
 
